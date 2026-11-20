@@ -46,9 +46,17 @@ export async function adminDbQuery<T = any>(params: AdminDbParams): Promise<{ da
 
   // 2. Second attempt: Fallback to /api/admin-db (Service Role via server API)
   try {
+    const { data: { session } } = await supabase.auth.getSession();
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json',
+    };
+    if (session?.access_token) {
+      headers['Authorization'] = `Bearer ${session.access_token}`;
+    }
+
     const res = await fetch('/api/admin-db', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers,
       body: JSON.stringify(params),
     });
 

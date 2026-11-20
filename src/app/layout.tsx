@@ -20,7 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="id" suppressHydrationWarning className="h-full antialiased">
-      <body className="min-h-full flex flex-col font-sans">
+      <body className="min-h-full flex flex-col font-sans" suppressHydrationWarning>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} storageKey="messtrack-theme">
           <SidebarLayout>{children}</SidebarLayout>
         </ThemeProvider>
